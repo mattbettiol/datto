@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DATTO RMM Alerts</title>
+    <script type="text/javascript">
+      // Replace <your-api-key> with your actual API key
+fetch('https://concord-api.centrastage.net/alerts', {
+  headers: {
+    'Authorization': 'Bearer FTJFM3D7N7OAEI4USMUEHS2UNOBMN1QN'
+  }
+})
+  .then(response => response.json())
+  .then(data => {
+    // Process the alert data here
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error retrieving alerts:', error);
+  });
+
+    </script>
+  </head>
+  <body>
+    <h1>DATTO RMM Alerts</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Alert ID</th>
+          <th>Device</th>
+          <th>Severity</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="alert-data">
+        <!-- Alert data will be inserted here -->
+      </tbody>
+    </table>
+    <script>
+      // Replace <your-api-key> with your actual API key
+      fetch('https://concord-api.centrastage.net/alerts', {
+        headers: {
+          'Authorization': 'Bearer FTJFM3D7N7OAEI4USMUEHS2UNOBMN1QN'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Insert the alert data into the HTML table
+          const alertData = document.getElementById('alert-data');
+          data.forEach(alert => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${alert.id}</td>
+              <td>${alert.device.name}</td>
+              <td>${alert.severity}</td>
+              <td>${alert.description}</td>
+            `;
+            alertData.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Error retrieving alerts:', error);
+        });
+    </script>
+  </body>
+</html>
